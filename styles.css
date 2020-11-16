@@ -1,0 +1,28 @@
+.container {
+    max-width: 540px !important;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="number"]:focus {
+    border-color: rgba(40, 167, 69, 0.8);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(40, 167, 69, 0.6);
+    outline: 0 none;
+}
+
+::selection {
+    background: rgba(40, 167, 69, 0.6);
+}
+
+a:link,
+a:visited {
+    color: #FEB2B2;
+}
+
+a:visited:hover,
+a:hover {
+    font-weight: bold;
+    color: #FEB2B2;
+}
