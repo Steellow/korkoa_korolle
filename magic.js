@@ -1,3 +1,12 @@
+// Alkupääoma = initialInvestment
+// Kuukausisäästö = monthlyInvestment
+// Säästöaika = investmentTime
+// Vuosituotto = interestRate
+
+// Pääoma = totalSaved
+// Tuotto = profit
+// Yhteensä = total
+
 $(document).ready(function() {
     calculateEverything()
 });
