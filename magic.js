@@ -2,7 +2,7 @@ $(document).ready(function() {
     calculateEverything()
 });
 
-let vuotta = true
+let yearsSelected = true
 
 // Select all text on input focus
 $("input[type='number']").click(function() {
@@ -14,70 +14,70 @@ $("input[type='number']").on('input', function() {
     calculateEverything()
 });
 
-$("#vuottaButton").click(function() {
-    $('#vuottaButton').removeClass('btn-outline-secondary')
-    $('#vuottaButton').addClass('btn-secondary')
-    $('#kuukauttaButton').removeClass('btn-secondary')
-    $('#kuukauttaButton').addClass('btn-outline-secondary')
-    vuotta = true
+$("#yearButton").click(function() {
+    $('#yearButton').removeClass('btn-outline-secondary')
+    $('#yearButton').addClass('btn-secondary')
+    $('#monthButton').removeClass('btn-secondary')
+    $('#monthButton').addClass('btn-outline-secondary')
+    yearsSelected = true
     calculateEverything()
 })
 
 
-$("#kuukauttaButton").click(function() {
-    $('#kuukauttaButton').removeClass('btn-outline-secondary')
-    $('#kuukauttaButton').addClass('btn-secondary')
-    $('#vuottaButton').removeClass('btn-secondary')
-    $('#vuottaButton').addClass('btn-outline-secondary')
-    vuotta = false
+$("#monthButton").click(function() {
+    $('#monthButton').removeClass('btn-outline-secondary')
+    $('#monthButton').addClass('btn-secondary')
+    $('#yearButton').removeClass('btn-secondary')
+    $('#yearButton').addClass('btn-outline-secondary')
+    yearsSelected = false
     calculateEverything()
 })
 
 // Calculates and displays all stuff
 function calculateEverything() {
-    let yhteensa = calculateTotal()
-    let paaoma = calculatePaaoma()
-    let tuotto = yhteensa - paaoma
+    let total = calculateTotal()
+    let savedMoney = calculateSavedMoney()
+    let profit = total - savedMoney
 
-    $("#paaomaText").text(numberWithSpaces(paaoma) + " €")
-    $("#tuottoText").text(numberWithSpaces(tuotto) + " €")
-    $("#yhteensaText").text(numberWithSpaces(yhteensa) + " €")
+    $("#paaomaText").text(numberWithSpaces(savedMoney) + " €")
+    $("#tuottoText").text(numberWithSpaces(profit) + " €")
+    $("#yhteensaText").text(numberWithSpaces(total) + " €")
 }
 
 function calculateTotal() {
     // Get inputs
-    let alkupaaoma = Number($("#alkupaaomaInput").val())
-    let kuukausisaasto = Number($("#kuukausisaastoInput").val())
-    let saastoaika = Number($("#saastoaikaInput").val())
-    let vuosituotto = Number($("#vuosituottoInput").val())
+    let initialInvestment = Number($("#initialInvestmentInput").val())
+    let monthlyInvestment = Number($("#monthlyInvestmentInput").val())
+    let investmentTime = Number($("#investmentTimeInput").val())
+    let interestRate = Number($("#interestRateInput").val())
 
-    // If "years" unit selected, multiplay saastoaika with 12
-    if (vuotta === true) {
-        saastoaika = saastoaika * 12
+    // If "years" unit selected, multiplay investmentTime with 12
+    if (yearsSelected === true) {
+        investmentTime = investmentTime * 12
     }
 
-    let monthlyMultiplyer = (vuosituotto / 100 / 12) + 1
+    let monthlyMultiplyer = (interestRate / 100 / 12) + 1
 
-    let total = alkupaaoma
+    let total = initialInvestment
 
-    for (let i = 0; i < saastoaika; i++) {
-        total += kuukausisaasto
+    for (let i = 0; i < investmentTime; i++) {
+        total += monthlyInvestment
         total = total * monthlyMultiplyer
     }
 
     return total
 }
 
-function calculatePaaoma() {
-    let alkupaaoma = Number($("#alkupaaomaInput").val())
-    let kuukausisaasto = Number($("#kuukausisaastoInput").val())
-    let saastoaika = Number($("#saastoaikaInput").val())
+function calculateSavedMoney() {
+    let initialInvestment = Number($("#initialInvestmentInput").val())
+    let monthlyInvestment = Number($("#monthlyInvestmentInput").val())
+    let investmentTime = Number($("#investmentTimeInput").val())
 
-    if (vuotta === true) {
-        saastoaika = saastoaika * 12
+    if (yearsSelected === true) {
+        investmentTime = investmentTime * 12
     }
 
-    let total = alkupaaoma + (kuukausisaasto * saastoaika)
+    let total = initialInvestment + (monthlyInvestment * investmentTime)
 
     return total
 }
