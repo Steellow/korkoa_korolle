@@ -48,8 +48,8 @@ function calculateEverything() {
     let savedMoney = calculateSavedMoney()
     let profit = total - savedMoney
 
-    $("#paaomaText").text(numberWithSpaces(savedMoney) + " €")
-    $("#tuottoText").text(numberWithSpaces(profit) + " €")
+    $("#totalSavedText").text(numberWithSpaces(savedMoney) + " €")
+    $("#profitText").text(numberWithSpaces(profit) + " €")
     $("#yhteensaText").text(numberWithSpaces(total) + " €")
 }
 
