@@ -79,7 +79,7 @@ function calculateSavedMoney() {
     const monthlyInvestment = Number($("#monthlyInvestmentInput").val())
     let investmentTime = Number($("#investmentTimeInput").val())
 
-    if (yearsSelected === true) {
+    if (yearsSelected) {
         investmentTime *= 12
     }
 
