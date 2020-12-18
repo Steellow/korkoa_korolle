@@ -7,9 +7,7 @@
 // Tuotto = profit
 // Yhteensä = total
 
-$(document).ready(function() {
-    calculateEverything()
-});
+$(document).ready(calculateEverything);
 
 let yearsSelected = true
 
@@ -44,9 +42,9 @@ $("#monthButton").click(function() {
 
 // Calculates and displays all stuff
 function calculateEverything() {
-    let total = calculateTotal()
-    let savedMoney = calculateSavedMoney()
-    let profit = total - savedMoney
+    const total = calculateTotal()
+    const savedMoney = calculateSavedMoney()
+    const profit = total - savedMoney
 
     $("#totalSavedText").text(numberWithSpaces(savedMoney) + " €")
     $("#profitText").text(numberWithSpaces(profit) + " €")
@@ -55,35 +53,34 @@ function calculateEverything() {
 
 function calculateTotal() {
     // Get inputs
-    let initialInvestment = Number($("#initialInvestmentInput").val())
-    let monthlyInvestment = Number($("#monthlyInvestmentInput").val())
+    const initialInvestment = Number($("#initialInvestmentInput").val())
+    const monthlyInvestment = Number($("#monthlyInvestmentInput").val())
+    const interestRate = Number($("#interestRateInput").val())
     let investmentTime = Number($("#investmentTimeInput").val())
-    let interestRate = Number($("#interestRateInput").val())
 
-    // If "years" unit selected, multiplay investmentTime with 12
-    if (yearsSelected === true) {
-        investmentTime = investmentTime * 12
+    if (yearsSelected) {
+        investmentTime *= 12
     }
 
-    let monthlyMultiplyer = (interestRate / 100 / 12) + 1
+    const monthlyMultiplyer = (interestRate / 100 / 12) + 1
 
     let total = initialInvestment
 
     for (let i = 0; i < investmentTime; i++) {
         total += monthlyInvestment
-        total = total * monthlyMultiplyer
+        total *= monthlyMultiplyer
     }
 
     return total
 }
 
 function calculateSavedMoney() {
-    let initialInvestment = Number($("#initialInvestmentInput").val())
-    let monthlyInvestment = Number($("#monthlyInvestmentInput").val())
+    const initialInvestment = Number($("#initialInvestmentInput").val())
+    const monthlyInvestment = Number($("#monthlyInvestmentInput").val())
     let investmentTime = Number($("#investmentTimeInput").val())
 
     if (yearsSelected === true) {
-        investmentTime = investmentTime * 12
+        investmentTime *= 12
     }
 
     let total = initialInvestment + (monthlyInvestment * investmentTime)
@@ -95,5 +92,5 @@ function numberWithSpaces(x) {
     if (x > Number.MAX_SAFE_INTEGER) {
         return "∞"
     }
-    return x.toFixed().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return x.toLocaleString('fi-FI', { maximumFractionDigits: 0 })
 }
